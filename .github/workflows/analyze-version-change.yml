@@ -30,14 +30,14 @@ jobs:
       - name: Generate git diff for client.bal and types.bal
         id: diff
         run: |
-          # Generate diff between main and auto-generate-connector branches
-          echo "Generating diff between origin/main and origin/auto-generate-connector..."
+          # Generate diff between master and auto-generate-connector branches
+          echo "Generating diff between origin/master and origin/auto-generate-connector..."
 
           # Generate diff for client.bal
-          git diff origin/main..origin/auto-generate-connector -- ballerina/client.bal > client_diff.txt || true
+          git diff origin/master..origin/auto-generate-connector -- ballerina/client.bal > client_diff.txt || true
 
           # Generate diff for types.bal
-          git diff origin/main..origin/auto-generate-connector -- ballerina/types.bal > types_diff.txt || true
+          git diff origin/master..origin/auto-generate-connector -- ballerina/types.bal > types_diff.txt || true
 
           # Combine diffs
           cat client_diff.txt types_diff.txt > git_diff.txt
@@ -194,7 +194,7 @@ jobs:
               repo: context.repo.repo,
               title: `[${analysis.changeType}] Auto-generated connector update - v${{ steps.update_version.outputs.new_version }}`,
               head: 'auto-generate-connector',
-              base: 'main',
+              base: 'master',
               body: prBody
             });
 
